@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('sizes', function (Blueprint $table) {
             $table->id();
-            $table->json('ItemImage');
-            $table->string('ItemName');
-            $table->string('ItemSalary');
+            $table->foreignId('item_id'); // Links to the users table
+            $table->integer('l');
+            $table->integer('xl');
+            $table->integer('2xl');
+            $table->integer('3xl');
+            $table->integer('4xl');
+            $table->integer('5xl');
+            $table->integer('6xl');
             $table->timestamps();
         });
     }
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('sizes');
     }
 };

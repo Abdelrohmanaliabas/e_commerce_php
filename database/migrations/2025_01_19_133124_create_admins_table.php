@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->json('ItemImage');
-            $table->string('ItemName');
-            $table->string('ItemSalary');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Links to the users table
+            $table->string('title');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('admins');
     }
 };

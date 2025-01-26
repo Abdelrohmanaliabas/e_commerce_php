@@ -44,6 +44,10 @@
                 </div>
             </div>
             @auth
+                <x-navitem href="/itemsCreate" :active="request()->is('/itemsCreate')">
+
+                    Create Item
+                </x-navitem>
 
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <button type="button"
@@ -74,11 +78,11 @@
                 </div>
             @endauth
             @guest
-                <x-navitem href="/login" :active="request()->is('/login')">
+                <x-navitem href="/login" :active="request()->is('login')">
 
                     Log in
                 </x-navitem>
-                <x-navitem href="/register" :active="request()->is('/register')">
+                <x-navitem href="/register" :active="request()->is('    register')">
                     Register
                 </x-navitem>
             @endguest

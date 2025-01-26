@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ItemsController ;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\SessionController;
+use App\Http\Middleware\AdminMiddleware;
 use App\Models\Items;
 use Illuminate\Support\Facades\Route;
 
@@ -9,7 +11,7 @@ Route::get('/', function () {
     return view('welcome',['items'=>Items::all()]);
 });
 
-Route::get('/itemdetails', function () {
+Route::get('/itemdetails/{item:id}', function () {
 return view('itemdetails');
 });
 Route::get('/contact', function () {
@@ -31,6 +33,10 @@ Route::get('/register', function () {
 return view('auth.register');
 });
 
+// Route::get('/items/create', function () {
+//     return view('/itemsCreate');
+// })->middleware('auth');
+
 
 Route::middleware('guest')->group(
     function () {
@@ -42,3 +48,18 @@ Route::middleware('guest')->group(
 );
 
 Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
+       
+
+
+
+
+Route::middleware(['auth',/**AdminMiddleware::class**/])->group(
+    function(){
+        
+
+        Route::post('/items', [ ItemsController::class, 'store']);
+        Route::get('/itemsCreate', [ItemsController::class, 'create']);
+
+        
+    }
+);

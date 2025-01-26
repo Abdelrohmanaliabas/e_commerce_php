@@ -48,4 +48,11 @@ class User extends Authenticatable
       public function address(){
       return $this->hasMany(Address::class);
       }
+
+    //   public function isAdmin()
+    //   {
+     
+    //   return Admin::where('user_id', $this->id)->exists(); 
+    //   }
+
 }
