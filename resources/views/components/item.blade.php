@@ -1,3 +1,4 @@
+
 <div class="bg-white">
     <div class="pt-6">
         <nav aria-label="Breadcrumb">
@@ -29,20 +30,29 @@
         </nav>
 
         <!-- Image gallery -->
+        @php
+            $images = json_decode($item->ItemImage, true) ?? [];
+        @endphp
+
+
+
+
         <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-            <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-secondary-product-shot.jpg"
-                alt="Two each of gray, white, and black shirts laying flat."
-                class="hidden aspect-[3/4] size-full rounded-lg object-cover lg:block">
+
+            <img src="{{ asset('storage/' . $images[0]) }}"
+                 alt="Model wearing plain black basic tee."
+                 class="aspect-[3/4] size-full rounded-lg object-cover lg:block">
             <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg"
+                <img src="{{ asset('storage/' . $images[1]) }}"
                     alt="Model wearing plain black basic tee." class="aspect-[3/2] size-full rounded-lg object-cover">
-                <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"
+                <img src="{{ asset('storage/' . $images[2]) }}"
                     alt="Model wearing plain gray basic tee." class="aspect-[3/2] size-full rounded-lg object-cover">
             </div>
-            <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-02-featured-product-shot.jpg"
+            <img src="{{ asset('storage/' . $images[3]) }}"
                 alt="Model wearing plain white basic tee."
                 class="aspect-[4/5] size-full object-cover sm:rounded-lg lg:aspect-[3/4]">
         </div>
+
 
         <!-- Product info -->
         <div

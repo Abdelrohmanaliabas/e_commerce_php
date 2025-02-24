@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Items as ModelsItems;
 use Illuminate\Http\Request;
-
+use App\Models\ItemsModel;
 class ItemsController extends Controller
 {
     /**
@@ -12,7 +11,9 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        //
+        $items = ItemsModel::all();
+        return view('welcome', compact('items'));
+
     }
 
     /**
@@ -28,7 +29,7 @@ class ItemsController extends Controller
      */
     public function store(Request $request) {
         $item = $request->validate([
-    'ItemImage' => ['nullable', 'array'], // Allow null for ItemImage
+    'ItemImage' => ['required', 'array','min:4'], // Allow null for ItemImage
     'ItemImage.*' => ['image', 'max:2048'], // Validate each file
     'ItemName' => ['required', 'string', 'max:255'],
     'ItemSalary' => ['required', 'numeric', 'min:0'],
@@ -42,11 +43,12 @@ class ItemsController extends Controller
     }
 
     // Save item with ItemImage or default value (e.g., an empty JSON array)
-    \App\Models\Items::create([
+    ItemsModel::create([
     'ItemName' => $item['ItemName'],
     'ItemSalary' => $item['ItemSalary'],
     'ItemImage' => !empty($filePaths) ? json_encode($filePaths) : json_encode([]),
     ]);
+
 
 
       return redirect('/');
@@ -58,7 +60,9 @@ class ItemsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $item =ItemsModel::findorFail($id);
+        return view('/itemdetails',compact('item'));
+
     }
 
     /**

@@ -12,7 +12,7 @@
 
 <body>
     <x-navbar></x-navbar>
-    <x-item></x-item>
+    <x-item :item="$item"></x-item>
 </body>
 
 </html>

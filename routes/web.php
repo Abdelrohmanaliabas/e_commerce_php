@@ -4,16 +4,22 @@ use App\Http\Controllers\ItemsController ;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Middleware\AdminMiddleware;
-use App\Models\Items;
+use App\Models\ItemsModel;
+use App\Models\ItemImageModel;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome',['items'=>Items::all()]);
-});
+Route::get('/', [ItemsController::class, 'index']);
+Route::middleware(['auth',AdminMiddleware::class])->group(
+    function(){
+        Route::post('/items', [ ItemsController::class, 'store']);
+        Route::get('/itemsCreate', [ItemsController::class, 'create']);
+    }
+);
+//Route::get('/itemdetails/{item:id}', function ($id) {
+//    return view('itemdetails',ItemsController::class.'show');
+//});
 
-Route::get('/itemdetails/{item:id}', function () {
-return view('itemdetails');
-});
+Route::get('/itemdetails/{id}', [ItemsController::class,'show']);
 Route::get('/contact', function () {
 return view('contact');
 });
@@ -22,6 +28,8 @@ return view('card');
 });Route::get('/about', function () {
 return view('about');
 });
+
+
 
 
 
@@ -48,18 +56,9 @@ Route::middleware('guest')->group(
 );
 
 Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
-       
 
 
 
 
-Route::middleware(['auth',/**AdminMiddleware::class**/])->group(
-    function(){
-        
 
-        Route::post('/items', [ ItemsController::class, 'store']);
-        Route::get('/itemsCreate', [ItemsController::class, 'create']);
 
-        
-    }
-);

@@ -16,7 +16,7 @@ class AdminMiddleware
      */
    public function handle($request, Closure $next)
    {
-   if (Auth::check() && Auth::user()->is_admin) { // Adjust 'is_admin' to match your database column.
+   if (Auth::check() && \request()->user()->isAdmin()) { // Adjust 'is_admin' to match your database column.
    return $next($request);
    }
 
